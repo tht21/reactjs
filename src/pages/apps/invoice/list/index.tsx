@@ -1,13 +1,18 @@
 // ** React Imports
-import { useState, useEffect, forwardRef } from 'react'
+import { Row, Col, Card } from "react-bootstrap";
 
+import CRow, { CCardBody } from '@coreui/react';
+import { useState, useEffect, forwardRef } from 'react'
+import '@coreui/coreui/dist/css/coreui.min.css'
 // ** Next Import
 import Link from 'next/link'
-
+// import React, { DetailedHTMLProps, HTMLAttributes} from 'react';
+import cx from 'classnames'
+// DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Card from '@mui/material/Card'
+// import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import MenuItem from '@mui/material/MenuItem'
@@ -49,12 +54,24 @@ import TableHeader from 'src/views/apps/invoice/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+// import Col from 'react-bootstrap/Col'
+// import { CardImg } from 'react-bootstrap';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 interface InvoiceStatusObj {
   [key: string]: {
     icon: string
     color: ThemeColor
   }
+}
+interface CCardProps extends React.HTMLAttributes<HTMLButtonElement> {
+  text: string
+  children?: React.ReactNode
+}
+
+const Button: React.FunctionComponent<CCardProps> = ({ text, ...rest }) => {
+  return <button {...rest}>{text}</button>
 }
 
 interface CustomInputProps {
@@ -86,20 +103,15 @@ const invoiceStatusObj: InvoiceStatusObj = {
 }
 
 // ** renders client column
-const renderClient = (row: InvoiceType) => {
-
-}
+const renderClient = (row: InvoiceType) => {}
 
 const defaultColumns = [
-
   // {
   //   flex: 0.1,
   //   minWidth: 80,
   //   renderCell: ({ row }: CellType) => {
   //     const { dueDate, balance, invoiceStatus } = row
-
   //     const color = invoiceStatusObj[invoiceStatus] ? invoiceStatusObj[invoiceStatus].color : 'primary'
-
   //     return (
   //       <Tooltip
   //         title={
@@ -121,7 +133,6 @@ const defaultColumns = [
   //         }
   //       >
   //         <CustomAvatar>
-
   //         </CustomAvatar>
   //       </Tooltip>
   //     )
@@ -134,7 +145,6 @@ const defaultColumns = [
   //   headerName: 'Client',
   //   renderCell: ({ row }: CellType) => {
   //     const { name, companyEmail } = row
-
   //     return (
   //       <Box sx={{ display: 'flex', alignItems: 'center' }}>
   //         {renderClient(row)}
@@ -247,7 +257,6 @@ const InvoiceList = () => {
       minWidth: 130,
       sortable: false,
 
-
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <OptionsMenu
@@ -299,22 +308,19 @@ const InvoiceList = () => {
   return (
     <DatePickerWrapper>
       <Grid container spacing={6}>
-      <TableHeader value={value} selectedRows={selectedRows} handleFilter={handleFilter} />
-        <Grid >
+        <TableHeader value={value} selectedRows={selectedRows} handleFilter={handleFilter} />
+        <Grid>
           <Card>
             {/* <DataGrid
               autoHeight
-              pagination
               rows={store.data}
               columns={columns}
-              checkboxSelection
               disableSelectionOnClick
               pageSize={Number(pageSize)}
-              rowsPerPageOptions={[10, 25, 50]}
               onSelectionModelChange={rows => setSelectedRows(rows)}
               onPageSizeChange={newPageSize => setPageSize(newPageSize)}
-            /> */}
-            <Grid
+            />
+            <Grid item xl={9} md={8} xs={12}
             sx={{
               p: 5,
               pb: 3,
@@ -323,13 +329,59 @@ const InvoiceList = () => {
               flexWrap: 'wrap',
               alignItems: 'center',
               justifyContent: 'space-between',
-              height: '200px'
+              height: '100px',
             }}
             >
-              aaaaaaaaaaaaaaaaaaaa
-            </Grid>
+            </Grid> */}
           </Card>
         </Grid>
+        <Row xs={{ cols: 1 }} md={{ cols: 3 }} className='g-4'>
+              <Col>
+                <Card className='h-100'>
+                  <Card.Img orientation='top' src='/images/react.jpg' />
+                  <Card.Body>
+                    <Card.Title>Card title</Card.Title>
+                    <Card.Text>
+                      This is a wider card with supporting text below as a natural lead-in to additional content. This
+                      content is a little bit longer.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col >
+                <Card className='h-100'>
+                  <Card.Img orientation='top' src='/images/react.jpg' />
+                  <Card.Body>
+                    <Card.Title>Card title</Card.Title>
+                    <Card.Text>This card has supporting text below as a natural lead-in to additional content.</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col >
+                <Card className='h-100'>
+                  <Card.Img orientation='top' src='/images/react.jpg' />
+                  <Card.Body>
+                    <Card.Title>Card title</Card.Title>
+                    <Card.Text>
+                      This is a wider card with supporting text below as a natural lead-in to additional content. This
+                      card has even longer content than the first to show that equal height action.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col xs>
+                <Card className='h-100'>
+                  <Card.Img orientation='top' src='/images/react.jpg' />
+                  <Card.Body>
+                    <Card.Title>Card title</Card.Title>
+                    <Card.Text>
+                      This is a wider card with supporting text below as a natural lead-in to additional content. This
+                      content is a little bit longer.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
       </Grid>
     </DatePickerWrapper>
   )
